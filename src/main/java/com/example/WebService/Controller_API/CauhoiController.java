@@ -1,6 +1,6 @@
 package com.example.WebService.Controller_API;
 
-import com.example.WebService.Entity_BangLaiXe.Cauhoi;
+import com.example.WebService.DTO.CauhoiDto;
 import com.example.WebService.Services.Impl.CauhoiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +16,8 @@ public class CauhoiController {
     private CauhoiServiceImpl cauhoiService;
 
     @GetMapping("get-all")
-    public List<Cauhoi> getCauhoi() {
-        List<Cauhoi> list = cauhoiService.findAll();
+    public List<CauhoiDto> getCauhoi() {
+        List<CauhoiDto> list = cauhoiService.findAll();
         return list;
     }
 }

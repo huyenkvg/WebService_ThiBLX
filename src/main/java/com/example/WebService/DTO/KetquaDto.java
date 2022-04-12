@@ -1,5 +1,7 @@
 package com.example.WebService.DTO;
 
+import com.example.WebService.Entity_BangLaiXe.Cauhoi;
+import com.example.WebService.Entity_BangLaiXe.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -14,13 +16,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KetquaDto implements Serializable {
+
+    @NotNull
+    private Integer id;
+    @Size(max = 1)
+    private  String phuongan;
+    @NotNull
+    private Integer macauhoi;
     @NotNull
     @Size(min = 1, max = 50)
     private  String mauser;
-    @NotNull
-    private int mabodethi;
-    @NotNull
-    private int macauhoi;
-    @Size(max = 1)
-    private  String phuongan;
+
 }

@@ -32,31 +32,29 @@ public class Cauhoi implements Serializable {
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.AUTO)
-    @Column(name = "MACAUHOI")
+    @Column(name = "MACAUHOI", nullable = false)
     private Integer macauhoi;
-    @Size(max = 100)
-    @Column(name = "NOIDUNG")
+    @Column(name = "NOIDUNG", length = 100)
     private String noidung;
-    @Size(max = 30)
-    @Column(name = "A")
+    @Column(name = "A", length = 30)
     private String a;
-    @Size(max = 30)
-    @Column(name = "B")
+    @Column(name = "B", length = 30)
     private String b;
-    @Size(max = 30)
-    @Column(name = "C")
+    @Column(name = "C", length = 30)
     private String c;
-    @Size(max = 30)
-    @Column(name = "D")
+    @Column(name = "D", length = 30)
     private String d;
-    @Size(max = 10)
-    @Column(name = "DAPAN")
+    @Column(name = "DAPAN", length = 10)
     private String dapan;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cauhoi")
-    private Collection<ChiTietDeThi> chiTietDeThiCollection;
+    @Column(name = "HINHANH", length = 100)
+    private String hinhAnh;
+    @JoinColumn(name = "MABODE", referencedColumnName = "MABODETHI")
+    @ManyToOne
+    private Bodethi maBoDe;
     @JoinColumn(name = "MA_LOAI_LI_THUYET", referencedColumnName = "MA_LOAI_LI_THUYET")
     @ManyToOne
     private Loailithuyet maLoaiLiThuyet;
+
 
     public Cauhoi() {
     }

@@ -45,6 +45,8 @@ public class Loaide implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maloaide")
     private Collection<Bodethi> bodethiCollection;
 
+
+
     public Loaide() {
     }
 

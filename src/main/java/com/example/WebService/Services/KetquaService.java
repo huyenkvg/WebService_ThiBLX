@@ -2,8 +2,6 @@ package com.example.WebService.Services;
 
 import com.example.WebService.DTO.KetquaDto;
 import com.example.WebService.Entity_BangLaiXe.Ketqua;
-import com.example.WebService.Entity_BangLaiXe.Ketqua;
-import com.example.WebService.Entity_BangLaiXe.KetquaPK;
 import com.example.WebService.Repositories.KetquaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +35,8 @@ public class KetquaService {
         return repo.findAll(sort);
     }
 
-    public List<Ketqua> findAllById(Iterable<KetquaPK> ketquaPKS) {
-        return repo.findAllById(ketquaPKS);
+    public List<Ketqua> findAllById(Iterable<Integer> integers) {
+        return repo.findAllById(integers);
     }
 
     public <S extends Ketqua> List<S> saveAll(Iterable<S> entities) {
@@ -66,8 +64,8 @@ public class KetquaService {
         repo.deleteAllInBatch(entities);
     }
 
-    public void deleteAllByIdInBatch(Iterable<KetquaPK> ketquaPKS) {
-        repo.deleteAllByIdInBatch(ketquaPKS);
+    public void deleteAllByIdInBatch(Iterable<Integer> integers) {
+        repo.deleteAllByIdInBatch(integers);
     }
 
     public void deleteAllInBatch() {
@@ -75,12 +73,12 @@ public class KetquaService {
     }
 
     @Deprecated
-    public Ketqua getOne(KetquaPK ketquaPK) {
-        return repo.getOne(ketquaPK);
+    public Ketqua getOne(Integer integer) {
+        return repo.getOne(integer);
     }
 
-    public Ketqua getById(KetquaPK ketquaPK) {
-        return repo.getById(ketquaPK);
+    public Ketqua getById(Integer integer) {
+        return repo.getById(integer);
     }
 
     public <S extends Ketqua> List<S> findAll(Example<S> example) {
@@ -99,28 +97,28 @@ public class KetquaService {
         return repo.save(entity);
     }
 
-    public Optional<Ketqua> findById(KetquaPK ketquaPK) {
-        return repo.findById(ketquaPK);
+    public Optional<Ketqua> findById(Integer integer) {
+        return repo.findById(integer);
     }
 
-    public boolean existsById(KetquaPK ketquaPK) {
-        return repo.existsById(ketquaPK);
+    public boolean existsById(Integer integer) {
+        return repo.existsById(integer);
     }
 
     public long count() {
         return repo.count();
     }
 
-    public void deleteById(KetquaPK ketquaPK) {
-        repo.deleteById(ketquaPK);
+    public void deleteById(Integer integer) {
+        repo.deleteById(integer);
     }
 
     public void delete(Ketqua entity) {
         repo.delete(entity);
     }
 
-    public void deleteAllById(Iterable<? extends KetquaPK> ketquaPKS) {
-        repo.deleteAllById(ketquaPKS);
+    public void deleteAllById(Iterable<? extends Integer> integers) {
+        repo.deleteAllById(integers);
     }
 
     public void deleteAll(Iterable<? extends Ketqua> entities) {
@@ -150,9 +148,10 @@ public class KetquaService {
     public <S extends Ketqua, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return repo.findBy(example, queryFunction);
     }
+
     public KetquaDto convertToDto(Ketqua ety) {
 
-        KetquaDto Dto = new KetquaDto(ety.getKetquaPK().getMauser(), ety.getKetquaPK().getMabodethi(), ety.getKetquaPK().getMacauhoi(), ety.getPhuongan());
+        KetquaDto Dto = new KetquaDto(ety.getId(), ety.getPhuongan(), ety.getMacauhoi().getMacauhoi(), ety.getMauser().getEmail());
         return Dto;
     }
 }

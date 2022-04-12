@@ -50,10 +50,11 @@ public class User implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "SDT")
     private String sdt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mauser")
     private Collection<Ketqua> ketquaCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Taikhoan taikhoan;
+
 
     public User() {
     }
@@ -97,14 +98,6 @@ public class User implements Serializable {
 
     public void setKetquaCollection(Collection<Ketqua> ketquaCollection) {
         this.ketquaCollection = ketquaCollection;
-    }
-
-    public Taikhoan getTaikhoan() {
-        return taikhoan;
-    }
-
-    public void setTaikhoan(Taikhoan taikhoan) {
-        this.taikhoan = taikhoan;
     }
 
     @Override

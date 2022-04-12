@@ -31,10 +31,9 @@ public class Loaibang implements Serializable {
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.AUTO)
-    @Column(name = "MALOAIBANG")
+    @Column(name = "MALOAIBANG", nullable = false)
     private Integer maloaibang;
-    @Size(max = 50)
-    @Column(name = "TENLOAIBANG")
+    @Column(name = "TENLOAIBANG", length = 50)
     private String tenloaibang;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maloaibang")
     private Collection<Bodethi> bodethiCollection;

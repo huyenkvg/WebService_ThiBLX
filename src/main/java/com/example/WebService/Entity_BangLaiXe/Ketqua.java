@@ -5,18 +5,13 @@
  */
 package com.example.WebService.Entity_BangLaiXe;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,29 +26,22 @@ import javax.validation.constraints.Size;
 public class Ketqua implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected KetquaPK ketquaPK;
-    @Size(max = 1)
-    @Column(name = "PHUONGAN")
+    @Column(name = "PHUONGAN", length = 1)
     private String phuongan;
-    @JoinColumns({
-        @JoinColumn(name = "MABODETHI", referencedColumnName = "MABODETHI", insertable = false, updatable = false),
-        @JoinColumn(name = "MACAUHOI", referencedColumnName = "MACAUHOI", insertable = false, updatable = false)})
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID", nullable = false)
+    private Integer id;
+    @JoinColumn(name = "MACAUHOI", referencedColumnName = "MACAUHOI", nullable = false)
     @ManyToOne(optional = false)
-    private ChiTietDeThi chiTietDeThi;
-    @JoinColumn(name = "MAUSER", referencedColumnName = "EMAIL", insertable = false, updatable = false)
+    private Cauhoi macauhoi;
+    @JoinColumn(name = "MAUSER", referencedColumnName = "EMAIL", nullable = false)
     @ManyToOne(optional = false)
-    private User user;
+    private User mauser;
 
     public Ketqua() {
     }
 
-    public Ketqua(KetquaPK ketquaPK) {
-        this.ketquaPK = ketquaPK;
-    }
 
-    public Ketqua(String mauser, int mabodethi, int macauhoi) {
-        this.ketquaPK = new KetquaPK(mauser, mabodethi, macauhoi);
-    }
 
 }

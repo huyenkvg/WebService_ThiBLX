@@ -48,6 +48,7 @@ public class Taikhoan implements Serializable {
     @OneToOne(optional = false)
     private User user;
 
+
     public Taikhoan() {
     }
 

@@ -32,16 +32,16 @@ public class Bodethi implements Serializable {
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.AUTO)
-    @Column(name = "MABODETHI")
+    @Column(name = "MABODETHI", nullable = false)
     private Integer mabodethi;
-    @JoinColumn(name = "MALOAIBANG", referencedColumnName = "MALOAIBANG")
+    @OneToMany(mappedBy = "maBoDe")
+    private Collection<Cauhoi> cauhoiCollection;
+    @JoinColumn(name = "MALOAIBANG", referencedColumnName = "MALOAIBANG", nullable = false)
     @ManyToOne(optional = false)
     private Loaibang maloaibang;
-    @JoinColumn(name = "MALOAIDE", referencedColumnName = "MALOAIDE")
+    @JoinColumn(name = "MALOAIDE", referencedColumnName = "MALOAIDE", nullable = false)
     @ManyToOne(optional = false)
     private Loaide maloaide;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodethi")
-    private Collection<ChiTietDeThi> chiTietDeThiCollection;
 
     public Bodethi() {
     }

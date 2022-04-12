@@ -41,6 +41,7 @@ public class Loailithuyet implements Serializable {
     @OneToMany(mappedBy = "maLoaiLiThuyet")
     private Collection<Cauhoi> cauhoiCollection;
 
+
     public Loailithuyet() {
     }
 

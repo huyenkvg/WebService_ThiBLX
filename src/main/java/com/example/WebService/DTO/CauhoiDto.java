@@ -26,7 +26,8 @@ public class CauhoiDto implements Serializable {
     @Size(max = 30)
     private String d;
     @Size(max = 10)
-    private  String dapan;
-    @NotNull
+    private String dapan;
+    private  String hinhAnh;
+    private Integer maBoDe;
     private Integer maLoaiLiThuyet;
 }
