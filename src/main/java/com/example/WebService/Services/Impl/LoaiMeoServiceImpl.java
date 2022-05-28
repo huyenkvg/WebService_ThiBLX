@@ -1,9 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LoaiMeoDto;
-import com.example.WebService.Entity_BangLaiXe.LoaiMeo;
-import com.example.WebService.Entity_BangLaiXe.LoaiMeo;
-import com.example.WebService.Repositories.LoaiMeoRepository;
+import com.example.WebService.DTO.LoaiMeoDTO;
+import com.example.WebService.Dto_Huyen.LoaiMeoDto;
+import com.example.WebService.Entity_BLX.LoaiMeo;
+import com.example.WebService.Mapper.LoaimeoMapper;
+import com.example.WebService.Repositories_Mixed.LoaiMeoRepository;
 import com.example.WebService.Services.LoaiMeoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -184,4 +186,16 @@ public class LoaiMeoServiceImpl implements LoaiMeoService {
     public <S extends LoaiMeo, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return loaiMeoRepository.findBy(example, queryFunction);
     }
+
+    ///////////////////////// YENNNN//////////////////////////////
+    @Override
+    public List<LoaiMeoDTO> getListLoaimeo(){
+        List<LoaiMeoDTO> result = new ArrayList<>();
+        List<LoaiMeo> loaiMeos = loaiMeoRepository.findAll();
+        for(LoaiMeo loaiMeo : loaiMeos){
+            result.add(LoaimeoMapper.toLoaiMeoDTO(loaiMeo));
+        }
+        return result;
+    }
+
 }

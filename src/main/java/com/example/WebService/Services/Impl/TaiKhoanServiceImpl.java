@@ -1,9 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.TaikhoanDto;
-import com.example.WebService.Entity_BangLaiXe.Taikhoan;
-import com.example.WebService.Entity_BangLaiXe.Taikhoan;
-import com.example.WebService.Repositories.TaikhoanRepository;
+import com.example.WebService.DTO.TaikhoanDTO;
+import com.example.WebService.Dto_Huyen.TaikhoanDto;
+import com.example.WebService.Entity_BLX.Taikhoan;
+import com.example.WebService.Mapper.TaikhoanMapper;
+import com.example.WebService.Repositories_Mixed.TaikhoanRepository;
 import com.example.WebService.Services.TaiKhoanService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -25,6 +31,57 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     private TaikhoanRepository taikhoanRepository;
     @Autowired
     private ModelMapper modelMapper;
+
+
+
+    @Override
+    public List<TaikhoanDTO> getListTaiKhoan(){
+        List<TaikhoanDTO> result = new ArrayList<>();
+        List<Taikhoan> taikhoans = taikhoanRepository.findAll();
+        for(Taikhoan tk : taikhoans){
+            result.add(TaikhoanMapper.toTaikhoanDTO(tk));
+        }
+        return result;
+    }
+
+    @Override
+    public TaikhoanDTO getTKById(String id){
+        List<Taikhoan> taikhoans = taikhoanRepository.findAll();
+        for(Taikhoan tk : taikhoans){
+            if(tk.getTendangnhap().equals(id)){
+                return TaikhoanMapper.toTaikhoanDTO(tk);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String maHoaMK(String mk) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(mk.getBytes());
+        byte[] digest = md.digest();
+        String newMK = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        return newMK;
+    }
+
+    @Override
+    public Boolean checkDangNhap(TaikhoanDTO taikhoanDTO, String tk, String mk){
+        System.out.println("tk: "+taikhoanDTO.getTendangnhap());
+        System.out.println("mk: "+taikhoanDTO.getMatkhau());
+        System.out.println("mk2: "+mk);
+        if(taikhoanDTO.getTendangnhap().trim().equals(tk) &&
+                taikhoanDTO.getMatkhau().trim().equals(mk)){
+            return true;
+        }
+        else return false;
+    }
+
+
+
+
+
+
+    //=========================HUYEN=========================================
 
     public TaikhoanDto convertToDto(Taikhoan ety) {
 

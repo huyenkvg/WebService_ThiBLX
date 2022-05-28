@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LuatGtDto;
-import com.example.WebService.Entity_BangLaiXe.LuatGt;
-import com.example.WebService.Repositories.LuatGtRepository;
+import com.example.WebService.DTO.LuatDTO;
+import com.example.WebService.Dto_Huyen.LuatGtDto;
+import com.example.WebService.Entity_BLX.LuatGt;
+import com.example.WebService.Mapper.LuatMapper;
+import com.example.WebService.Repositories_Mixed.LuatGtRepository;
 import com.example.WebService.Services.LuatGtService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -27,9 +30,10 @@ public class LuatGtServiceImpl implements LuatGtService {
 
     public LuatGtDto convertToDto(LuatGt ety) {
 
-        LuatGtDto Dto = new LuatGtDto(ety.getMaluat(),ety.getNoidung(), ety.getMaLoaiLuatGt().getMaLoaiLuatGt());
+        LuatGtDto Dto = new LuatGtDto(ety.getMaluat(), ety.getNoidung(), ety.getMucphat());
         return Dto;
     }
+
     @Override
     public List<LuatGtDto> findAll() {
         return luatGtRepository.findAll().stream()
@@ -182,5 +186,17 @@ public class LuatGtServiceImpl implements LuatGtService {
     @Override
     public <S extends LuatGt, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return luatGtRepository.findBy(example, queryFunction);
+    }
+
+    @Override
+    public List<LuatDTO> getLuatByLoaiLuat(Integer maLoailuat){
+        List<LuatGt> luatGts = luatGtRepository.findAll();
+        List<LuatDTO> list = new ArrayList<>();
+        for(LuatGt luatGt : luatGts){
+            if(luatGt.getMaLoaiLuatGt().getMaLoaiLuatGt() == maLoailuat){
+                list.add(LuatMapper.toLuatDTO(luatGt));
+            }
+        }
+        return list;
     }
 }

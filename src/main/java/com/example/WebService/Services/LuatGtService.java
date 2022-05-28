@@ -1,7 +1,8 @@
 package com.example.WebService.Services;
 
-import com.example.WebService.DTO.LuatGtDto;
-import com.example.WebService.Entity_BangLaiXe.LuatGt;
+import com.example.WebService.DTO.LuatDTO;
+import com.example.WebService.Dto_Huyen.LuatGtDto;
+import com.example.WebService.Entity_BLX.LuatGt;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,4 +75,6 @@ public interface LuatGtService {
     <S extends LuatGt> boolean exists(Example<S> example);
 
     <S extends LuatGt, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+    //=======YEN
+    List<LuatDTO> getLuatByLoaiLuat(Integer maLoailuat);
 }

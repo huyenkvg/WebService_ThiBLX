@@ -2,20 +2,17 @@ package com.example.WebService.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 @Data
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class MeoDto implements Serializable {
-    @NotNull
-    private  Integer maMeo;
-    @Size(max = 50)
-    private  String noidung;
+@NoArgsConstructor
+@ToString
+public class MeoDTO {
+    private Integer maMeo;
+    @Size(max = 200)
+    private String noidung;
 }

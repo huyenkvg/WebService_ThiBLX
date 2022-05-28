@@ -1,7 +1,8 @@
 package com.example.WebService.Services;
 
-import com.example.WebService.DTO.LoaideDto;
-import com.example.WebService.Entity_BangLaiXe.Loaide;
+import com.example.WebService.DTO.LoaideDTO;
+import com.example.WebService.Dto_Huyen.LoaideDto;
+import com.example.WebService.Entity_BLX.Loaide;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,4 +75,6 @@ public interface LoaideService {
     <S extends Loaide> boolean exists(Example<S> example);
 
     <S extends Loaide, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+//================ NGAN YEN ====================================
+    List<LoaideDTO> getListLoaide();
 }

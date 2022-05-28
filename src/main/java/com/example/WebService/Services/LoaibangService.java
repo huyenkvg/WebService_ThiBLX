@@ -1,7 +1,8 @@
 package com.example.WebService.Services;
 
-import com.example.WebService.DTO.LoaibangDto;
-import com.example.WebService.Entity_BangLaiXe.Loaibang;
+import com.example.WebService.DTO.LoaibangDTO;
+import com.example.WebService.Dto_Huyen.LoaibangDto;
+import com.example.WebService.Entity_BLX.Loaibang;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,4 +75,7 @@ public interface LoaibangService {
     <S extends Loaibang> boolean exists(Example<S> example);
 
     <S extends Loaibang, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+    //================== Ngan Yen ===========================================
+
+    List<LoaibangDTO> getListLoaibang();
 }

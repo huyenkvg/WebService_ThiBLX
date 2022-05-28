@@ -1,6 +1,7 @@
 package com.example.WebService.Services;
 
-import com.example.WebService.Entity_BangLaiXe.LoaiMeo;
+import com.example.WebService.DTO.LoaiMeoDTO;
+import com.example.WebService.Entity_BLX.LoaiMeo;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,11 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public interface LoaiMeoService {
+
+    List<LoaiMeoDTO> getListLoaimeo();
+
+
+    //========================== HUYEN ===============================================================
     List<LoaiMeo> findAll(Sort sort);
 
     List<LoaiMeo> findAllById(Iterable<Integer> integers);
@@ -71,4 +77,5 @@ public interface LoaiMeoService {
     <S extends LoaiMeo> boolean exists(Example<S> example);
 
     <S extends LoaiMeo, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+
 }

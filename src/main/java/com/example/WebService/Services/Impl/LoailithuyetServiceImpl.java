@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LoailithuyetDto;
-import com.example.WebService.Entity_BangLaiXe.Loailithuyet;
-import com.example.WebService.Repositories.LoailithuyetRepository;
+import com.example.WebService.DTO.LoailithuyetDTO;
+import com.example.WebService.Dto_Huyen.LoailithuyetDto;
+import com.example.WebService.Entity_BLX.Loailithuyet;
+import com.example.WebService.Mapper.LoailithuyetMapper;
+import com.example.WebService.Repositories_Mixed.LoailithuyetRepository;
 import com.example.WebService.Services.LoailithuyetService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -184,4 +187,26 @@ public class LoailithuyetServiceImpl implements LoailithuyetService {
     public <S extends Loailithuyet, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return loailithuyetRepository.findBy(example, queryFunction);
     }
+    ///================YEN===========================
+    @Override
+    public List<LoailithuyetDTO> getListLoailt(){
+        List<LoailithuyetDTO> result = new ArrayList<>();
+        List<Loailithuyet> loailt = loailithuyetRepository.findAll();
+        for(Loailithuyet loailithuyet : loailt){
+            result.add(LoailithuyetMapper.toLoailithuyetDTO(loailithuyet));
+        }
+        return result;
+    }
+
+    @Override
+    public LoailithuyetDTO getLoailtByID(Integer id){
+        List<Loailithuyet> loailithuyets = loailithuyetRepository.findAll();
+        for(Loailithuyet loailt : loailithuyets){
+            if(loailt.getMaLoaiLiThuyet() == id){
+                return LoailithuyetMapper.toLoailithuyetDTO(loailt);
+            }
+        }
+        return null;
+    }
+
 }

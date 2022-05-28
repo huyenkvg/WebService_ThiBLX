@@ -1,24 +1,21 @@
 package com.example.WebService.DTO;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class AdminDto implements Serializable {
     @NotNull
     @Size(min = 1, max = 50)
-    private String email ;
+    private final String email;
     @Size(max = 50)
-    private String hoten ;
+    private final String hoten;
     @Size(max = 12)
-    private  String cmnd;
+    private final String cmnd;
     @NotNull
     @Size(min = 1, max = 10)
-    private String sdt;
+    private final String sdt;
 }

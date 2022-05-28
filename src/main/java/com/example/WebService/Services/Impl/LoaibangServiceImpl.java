@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LoaibangDto;
-import com.example.WebService.Entity_BangLaiXe.Loaibang;
-import com.example.WebService.Repositories.LoaibangRepository;
+import com.example.WebService.DTO.LoaibangDTO;
+import com.example.WebService.Dto_Huyen.LoaibangDto;
+import com.example.WebService.Entity_BLX.Loaibang;
+import com.example.WebService.Mapper.LoaibangMapper;
+import com.example.WebService.Repositories_Mixed.LoaibangRepository;
 import com.example.WebService.Services.LoaibangService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -183,5 +186,16 @@ public class LoaibangServiceImpl implements LoaibangService {
 
         LoaibangDto Dto = new LoaibangDto(ety.getMaloaibang(), ety.getTenloaibang());
         return Dto;
+    }
+
+    //================ Nagn Yen =============================
+    @Override
+    public List<LoaibangDTO> getListLoaibang(){
+        List<LoaibangDTO> result = new ArrayList<>();
+        List<Loaibang> loaibangs = loaibangRepository.findAll();
+        for(Loaibang loaibang : loaibangs){
+            result.add(LoaibangMapper.toLoaibangDTO(loaibang));
+        }
+        return result;
     }
 }

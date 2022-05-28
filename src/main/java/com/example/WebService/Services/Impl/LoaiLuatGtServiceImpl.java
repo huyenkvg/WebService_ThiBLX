@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LoaiLuatGtDto;
-import com.example.WebService.Entity_BangLaiXe.LoaiLuatGt;
-import com.example.WebService.Repositories.LoaiLuatGtRepository;
+import com.example.WebService.DTO.LoaiLuatDTO;
+import com.example.WebService.Dto_Huyen.LoaiLuatGtDto;
+import com.example.WebService.Entity_BLX.LoaiLuatGt;
+import com.example.WebService.Mapper.LoailuatMapper;
+import com.example.WebService.Repositories_Mixed.LoaiLuatGtRepository;
 import com.example.WebService.Services.LoaiLuatGtService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -24,6 +27,18 @@ public class LoaiLuatGtServiceImpl implements LoaiLuatGtService {
     private LoaiLuatGtRepository loaiLuatGtRepository;
     @Autowired
     private ModelMapper modelMapper;
+
+
+    @Override
+    public List<LoaiLuatDTO> getListLoailuat(){
+        List<LoaiLuatDTO> result = new ArrayList<>();
+        List<LoaiLuatGt> loaiLuatGts = loaiLuatGtRepository.findAll();
+        for(LoaiLuatGt loaiLuatGt : loaiLuatGts){
+            result.add(LoailuatMapper.toLoailuatDTO(loaiLuatGt));
+        }
+        return result;
+    }
+    //======================HUYEN=================
 
     public LoaiLuatGtDto convertToDto(LoaiLuatGt ety) {
 

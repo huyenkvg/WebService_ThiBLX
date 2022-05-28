@@ -1,8 +1,13 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.CauhoiDto;
-import com.example.WebService.Entity_BangLaiXe.Cauhoi;
-import com.example.WebService.Repositories.CauhoiRepository;
+import com.example.WebService.DTO.CauhoiDTO;
+import com.example.WebService.Dto_Huyen.CauhoiDto;
+import com.example.WebService.Entity_BLX.Cauhoi;
+import com.example.WebService.Entity_BLX.Ketqua;
+import com.example.WebService.Mapper.CauhoiMapper;
+import com.example.WebService.Repositories_Mixed.CauhoiRepository;
+import com.example.WebService.Repositories_Mixed.KetquaRepository;
+import com.example.WebService.Services.CauhoiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -11,15 +16,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class CauhoiServiceImpl {
+public class CauhoiServiceImpl implements CauhoiService {
     @Autowired
     private CauhoiRepository cauhoiRepository;
+    @Autowired
+    private KetquaRepository ketquaRepository;
 
     public CauhoiDto convertToDto(Cauhoi ety) {
 
@@ -149,4 +157,74 @@ public class CauhoiServiceImpl {
     public <S extends Cauhoi, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return cauhoiRepository.findBy(example, queryFunction);
     }
+
+    ///////////////===============NGAN YEN//////////
+
+    @Override
+    public List<CauhoiDTO> getListCauhoi(){
+        List<CauhoiDTO> result = new ArrayList<CauhoiDTO>();
+        List<Cauhoi> cauhois = cauhoiRepository.findAll();
+        for(Cauhoi cauhoi : cauhois){
+            result.add(CauhoiMapper.toCauhoiDTO(cauhoi));
+        }
+        return result;
+    }
+
+    @Override
+    public CauhoiDTO getCauhoiById(Integer id) {
+        List<Cauhoi> cauhois = cauhoiRepository.findAll();
+        for(Cauhoi cauhoi : cauhois){
+            if(cauhoi.getMacauhoi().equals(id)){
+                return CauhoiMapper.toCauhoiDTO(cauhoi);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<CauhoiDTO> getCauHoiLT(Integer maBoDe, Integer maLoailt) {
+        List<Cauhoi> cauhois = cauhoiRepository.findAll();
+        List<CauhoiDTO> list = new ArrayList<>();
+        for(Cauhoi cauhoi : cauhois){
+            if((cauhoi.getMaBoDe().getMabodethi())==maBoDe && (cauhoi.getMaLoaiLiThuyet().getMaLoaiLiThuyet())==maLoailt){
+                list.add(CauhoiMapper.toCauhoiDTO(cauhoi));
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<CauhoiDTO> randCauHoi(Integer maBoDe) {
+        List<Cauhoi> cauhois = cauhoiRepository.findCauHoi();
+        List<CauhoiDTO> list = new ArrayList<>();
+        for(Cauhoi cauhoi : cauhois){
+            if(cauhoi.getMaBoDe().getMabodethi()==maBoDe) {
+                list.add(CauhoiMapper.toCauhoiDTO(cauhoi));
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<CauhoiDTO> getKQ_Cauhoi(String email, Integer luotthi, Integer maBoDe) {
+        List<Cauhoi> cauhois = cauhoiRepository.getKQ_Cauhoi(email,luotthi,maBoDe);
+        List<CauhoiDTO> list = new ArrayList<>();
+        for(Cauhoi cauhoi : cauhois){
+            list.add(CauhoiMapper.toCauhoiDTO(cauhoi));
+        }
+        return list;
+    }
+
+    @Override
+    public List<CauhoiDTO> getCausai(String email, Integer maBoDe){
+        List<Cauhoi> cauhois = cauhoiRepository.getCauHoi(email,maBoDe);
+        List<CauhoiDTO> list = new ArrayList<>();
+        List<Ketqua> ketquas = ketquaRepository.findAll();
+        for(int i =0;i< cauhois.size();i++){
+            if(!(cauhois.get(i).getDapan().trim().equals(ketquas.get(i).getPhuongan().trim())))
+                list.add(CauhoiMapper.toCauhoiDTO(cauhois.get(i)));
+        }
+        return list;
+    }
+
 }

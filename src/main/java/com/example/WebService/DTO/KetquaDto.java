@@ -1,30 +1,22 @@
 package com.example.WebService.DTO;
 
-import com.example.WebService.Entity_BangLaiXe.Cauhoi;
-import com.example.WebService.Entity_BangLaiXe.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Id;
 
 @Data
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class KetquaDto implements Serializable {
-
-    @NotNull
+@NoArgsConstructor
+@ToString
+public class KetquaDTO {
+    @Id
+    @Basic(optional = false)
     private Integer id;
-    @Size(max = 1)
-    private  String phuongan;
-    @NotNull
-    private Integer macauhoi;
-    @NotNull
-    @Size(min = 1, max = 50)
-    private  String mauser;
+    private String phuongan;
+    private Integer luotthi;
 
 }

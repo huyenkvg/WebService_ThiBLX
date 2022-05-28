@@ -1,9 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.MeoDto;
-import com.example.WebService.Entity_BangLaiXe.Meo;
-import com.example.WebService.Entity_BangLaiXe.Meo;
-import com.example.WebService.Repositories.MeoRepository;
+import com.example.WebService.DTO.MeoDTO;
+import com.example.WebService.Dto_Huyen.MeoDto;
+import com.example.WebService.Entity_BLX.Meo;
+import com.example.WebService.Mapper.MeoMapper;
+import com.example.WebService.Repositories_Mixed.MeoRepository;
 import com.example.WebService.Services.MeoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,5 +154,17 @@ public class MeoServiceImpl implements MeoService {
 
     public <S extends Meo, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return meoRepository.findBy(example, queryFunction);
+    }
+
+    //=================
+    @Override
+    public MeoDTO getMeoByLoaiMeo(Integer maLoaiMeo){
+        List<Meo> Meos = meoRepository.findAll();
+        for(Meo meo : Meos){
+            if(meo.getMaLoaiMeo().getMaLoaiMeo() == maLoaiMeo){
+                return MeoMapper.toLoaiMeoDTO(meo);
+            }
+        }
+        return null;
     }
 }

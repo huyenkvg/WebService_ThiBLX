@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.LoaideDto;
-import com.example.WebService.Entity_BangLaiXe.Loaide;
-import com.example.WebService.Repositories.LoaideRepository;
+import com.example.WebService.DTO.LoaideDTO;
+import com.example.WebService.Dto_Huyen.LoaideDto;
+import com.example.WebService.Entity_BLX.Loaide;
+import com.example.WebService.Mapper.LoaideMapper;
+import com.example.WebService.Repositories_Mixed.LoaideRepository;
 import com.example.WebService.Services.LoaideService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -184,5 +187,16 @@ public class LoaideServiceImpl implements LoaideService {
     @Override
     public <S extends Loaide, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return loaideRepository.findBy(example, queryFunction);
+    }
+    //=============== YEN ========================
+
+    @Override
+    public List<LoaideDTO> getListLoaide(){
+        List<LoaideDTO> result = new ArrayList<LoaideDTO>();
+        List<Loaide> loaides = loaideRepository.findAll();
+        for(Loaide loaide : loaides){
+            result.add(LoaideMapper.toLoaideDTO(loaide));
+        }
+        return result;
     }
 }

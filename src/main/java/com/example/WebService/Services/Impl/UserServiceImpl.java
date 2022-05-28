@@ -1,9 +1,12 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.UserDto;
-import com.example.WebService.Entity_BangLaiXe.User;
-import com.example.WebService.Entity_BangLaiXe.User;
-import com.example.WebService.Repositories.UserRepository;
+import com.example.WebService.DTO.UserDTO;
+import com.example.WebService.Dto_Huyen.UserDto;
+import com.example.WebService.Entity_BLX.Taikhoan;
+import com.example.WebService.Entity_BLX.User;
+import com.example.WebService.Mapper.UserMapper;
+import com.example.WebService.Repositories_Mixed.TaikhoanRepository;
+import com.example.WebService.Repositories_Mixed.UserRepository;
 import com.example.WebService.Services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -25,6 +29,63 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private TaikhoanRepository taikhoanRepository;
+
+    @Override
+    public List<UserDTO> getListUser(){
+        List<UserDTO> result = new ArrayList<UserDTO>();
+        List<User> users = userRepository.findAll();
+        for(User user : users){
+            result.add(UserMapper.toUserDTO(user));
+        }
+        return result;
+    }
+
+    @Override
+    public List<User> getList(){
+        List<User> users = userRepository.findAll();
+        return users;
+    }
+
+    @Override
+    public UserDTO getUserById(String id) {
+        List<User> users = userRepository.findAll();
+        for(User user : users){
+            if(user.getEmail().equals(id)){
+                return UserMapper.toUserDTO(user);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(String id){
+        List<User> users = userRepository.findAll();
+        for(User user : users){
+            if(user.getEmail().equals(id)){
+                userRepository.delete(user);
+            }
+        }
+    }
+
+    @Override
+    public UserDTO getUserbyTK(String tk, String pass){
+        List<Taikhoan> taikhoans = taikhoanRepository.findAll();
+        for(Taikhoan taikhoan : taikhoans){
+            if(taikhoan.getTendangnhap().equals(tk) && taikhoan.getMatkhau().equals(pass)){
+                return getUserById(tk);
+            }
+        }
+        return null;
+    }
+    //==================================================================================================
+    ////////////////////////=======================HUYENNN+++============================================
 
     public UserDto convertToDto(User ety) {
 

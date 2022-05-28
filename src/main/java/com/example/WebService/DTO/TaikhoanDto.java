@@ -2,26 +2,22 @@ package com.example.WebService.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 @Data
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TaikhoanDto implements Serializable {
+@NoArgsConstructor
+@ToString
+public class TaikhoanDTO {
     @NotNull
     @Size(min = 1, max = 50)
-    private  String tendangnhap;
+    private String tendangnhap;
     @Size(max = 50)
-    private  String matkhau;
+    private String matkhau;
     @Size(max = 10)
     private String trangthai;
-    @NotNull
-    @Size(min = 1, max = 50)
-    private  String userEmail;
 }

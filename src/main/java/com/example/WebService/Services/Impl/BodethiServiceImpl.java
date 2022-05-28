@@ -1,8 +1,10 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.BodethiDto;
-import com.example.WebService.Entity_BangLaiXe.Bodethi;
-import com.example.WebService.Repositories.BodethiRepository;
+import com.example.WebService.DTO.BodethiDTO;
+import com.example.WebService.Dto_Huyen.BodethiDto;
+import com.example.WebService.Entity_BLX.Bodethi;
+import com.example.WebService.Mapper.BodethiMapper;
+import com.example.WebService.Repositories_Mixed.BodethiRepository;
 import com.example.WebService.Services.BodethiService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,17 @@ public class BodethiServiceImpl implements BodethiService {
    private BodethiRepository bodethiRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Override
+    public BodethiDTO getBoDe(Integer maLoaibang, Integer maLoaide) {
+        List<Bodethi> bodethis = bodethiRepository.findAll();
+        for(Bodethi bodethi : bodethis){
+            if((bodethi.getMaloaibang().getMaloaibang())==maLoaibang && (bodethi.getMaloaide().getMaloaide())==maLoaide){
+                return BodethiMapper.toBodethiDTO(bodethi);
+            }
+        }
+        return null;
+    }
+    //=========================================HUYEN
 
     @Override
     public List<BodethiDto> findAll() {

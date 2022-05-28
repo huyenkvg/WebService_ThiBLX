@@ -1,7 +1,8 @@
 package com.example.WebService.Services;
 
-import com.example.WebService.DTO.BodethiDto;
-import com.example.WebService.Entity_BangLaiXe.Bodethi;
+import com.example.WebService.DTO.BodethiDTO;
+import com.example.WebService.Dto_Huyen.BodethiDto;
+import com.example.WebService.Entity_BLX.Bodethi;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,4 +78,8 @@ public interface BodethiService {
     <S extends Bodethi, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
     BodethiDto convertToDto(Bodethi ety);
+
+    //===========================NGAN YEN===============================================================
+    BodethiDTO getBoDe(Integer maLoaibang, Integer maLoaide);
+
 }

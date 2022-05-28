@@ -2,21 +2,16 @@ package com.example.WebService.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Data
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class BodethiDto implements Serializable {
+@NoArgsConstructor
+@ToString
+public class BodethiDTO {
     @NotNull
     private Integer mabodethi;
-    @NotNull
-    private  Integer maloaibang;
-    @NotNull
-    private  Integer maloaide;
 }

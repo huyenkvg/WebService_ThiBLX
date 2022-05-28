@@ -1,6 +1,6 @@
 package com.example.WebService;
 
-import com.example.WebService.Entity_BangLaiXe.Cauhoi;
+import com.example.WebService.Entity_BLX.Cauhoi;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +16,7 @@ public class WebServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebServiceApplication.class, args);
-		com.example.WebService.Entity_BangLaiXe.Cauhoi ch = new Cauhoi();
+		com.example.WebService.Entity_BLX.Cauhoi ch = new Cauhoi();
 
 		System.out.println("HuyenkuteHEHE");
 

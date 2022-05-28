@@ -1,9 +1,9 @@
 package com.example.WebService.Services.Impl;
 
-import com.example.WebService.DTO.TaikhoanAdminDto;
-import com.example.WebService.Entity_BangLaiXe.TaikhoanAdmin;
-import com.example.WebService.Entity_BangLaiXe.TaikhoanAdmin;
-import com.example.WebService.Repositories.TaikhoanAdminRepository;
+import com.example.WebService.Dto_Huyen.TaikhoanAdminDto;
+import com.example.WebService.Entity_BLX.TaikhoanAdmin;
+import com.example.WebService.Repositories_Mixed.TaikhoanAdminRepository;
+import com.example.WebService.Services.TaiKhoanAdminService;
 import com.example.WebService.Services.TaiKhoanService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +20,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class TaiKhoanAdminServiceImpl implements TaiKhoanService {
+public class TaiKhoanAdminServiceImpl implements TaiKhoanAdminService {
     @Autowired
     private TaikhoanAdminRepository taikhoanAdminRepository;
-    @Autowired
-    private ModelMapper modelMapper;
 
-    public TaikhoanAdminDto convertToDto(TaikhoanAdmin ety) {
-
-        TaikhoanAdminDto Dto = new TaikhoanAdminDto(ety.getTendangnhap(), ety.getMatkhau(), ety.getTrangthai(), ety.getAdmin().getEmail());
-        return Dto;
-    }
-    public List<TaikhoanAdminDto> findAll() {
-        return taikhoanAdminRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public List<TaikhoanAdmin> findAll() {
+        return taikhoanAdminRepository.findAll();
     }
 
     public List<TaikhoanAdmin> findAll(Sort sort) {
