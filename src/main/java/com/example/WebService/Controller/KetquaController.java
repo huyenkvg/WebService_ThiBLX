@@ -46,4 +46,6 @@ public class KetquaController {
     public void deleteKQ(@RequestParam(name="luotthi") Integer luotthi, @RequestParam(name="email") String email){
         ketquaService.deleteKetqua(luotthi,email);
     }
+
+
 }

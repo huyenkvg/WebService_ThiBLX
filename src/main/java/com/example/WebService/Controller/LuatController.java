@@ -2,13 +2,11 @@ package com.example.WebService.Controller;
 
 import com.example.WebService.DTO.LoaiLuatDTO;
 import com.example.WebService.DTO.LuatDTO;
+import com.example.WebService.Entity_BLX.LuatGt;
 import com.example.WebService.Services.LoaiLuatGtService;
 import com.example.WebService.Services.LuatGtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,14 @@ public class LuatController {
     public List<LuatDTO> getMeo(@RequestParam(name="maloailuat") Integer maloailuat) {
         List<LuatDTO> result = luatGtService.getLuatByLoaiLuat(maloailuat);
         return result;
+    }
+    @PostMapping("save")
+    public void ínserLuatGt(@RequestBody LuatGt x) {
+        luatGtService.save(x);
+    }
+
+    @DeleteMapping("delete")
+    public void removeLuatGt(@RequestBody LuatGt x) {
+        luatGtService.delete(x);
     }
 }

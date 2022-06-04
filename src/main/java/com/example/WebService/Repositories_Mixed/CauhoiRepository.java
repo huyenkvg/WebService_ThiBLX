@@ -12,9 +12,13 @@ import java.util.List;
 
 @Repository
 public interface CauhoiRepository extends JpaRepository<Cauhoi, Integer> {
+//    @Modifying
+//    @Transactional
+//    @Query(nativeQuery = true,value = "SELECT * FROM Cauhoi e ORDER BY RAND()")
+//    List<Cauhoi> findCauHoi();
     @Modifying
     @Transactional
-    @Query(nativeQuery = true,value = "SELECT * FROM Cauhoi e ORDER BY newid()")
+    @Query(nativeQuery = true,value = "SELECT * FROM Cauhoi")
     List<Cauhoi> findCauHoi();
 
     @Modifying

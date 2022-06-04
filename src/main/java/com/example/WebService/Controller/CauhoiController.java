@@ -1,14 +1,17 @@
 package com.example.WebService.Controller;
 
 import com.example.WebService.Dto_Huyen.CauhoiDto;
+import com.example.WebService.Entity_BLX.Bodethi;
 import com.example.WebService.Entity_BLX.Cauhoi;
 import com.example.WebService.DTO.CauhoiDTO;
 import com.example.WebService.Services.Impl.CauhoiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/cauhoi/")
@@ -58,10 +61,34 @@ public class CauhoiController {
     }
 
 
-
     @GetMapping("get-all")
-    public List<CauhoiDto> getCauhoiHuyen() {
+    public List<CauhoiDto> getCauhoiTest() {
         List<CauhoiDto> list = cauhoiService.findAll();
+
         return list;
     }
+    @GetMapping("get-rand")
+    public List<CauhoiDTO> randomDeThi(@RequestParam(name="mabode") Integer maBoDe) {
+        List<CauhoiDTO> list = cauhoiService.randCauHoi(maBoDe);
+
+        List<CauhoiDTO> myrand = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            Random generator = new Random();
+            int randomIndex = generator.nextInt(list.toArray().length);
+
+            myrand.add(list.get(randomIndex));
+            list.remove(randomIndex);
+        }
+        return myrand;
+    }
+    @PostMapping("save")
+    public void ínserCauHoi(@RequestBody Cauhoi x) {
+        cauhoiService.save(x);
+    }
+
+    @DeleteMapping("delete")
+    public void removeCauhoi(@RequestBody Cauhoi x) {
+        cauhoiService.delete(x);
+    }
+
 }

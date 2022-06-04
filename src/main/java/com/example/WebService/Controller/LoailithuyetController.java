@@ -1,12 +1,11 @@
 package com.example.WebService.Controller;
 
 import com.example.WebService.DTO.LoailithuyetDTO;
+import com.example.WebService.Entity_BLX.Cauhoi;
+import com.example.WebService.Entity_BLX.Loailithuyet;
 import com.example.WebService.Services.LoailithuyetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,14 @@ public class LoailithuyetController {
     public LoailithuyetDTO getLoailtById(@PathVariable Integer id){
         LoailithuyetDTO loailt = loailithuyetService.getLoailtByID(id);
         return loailt;
+    }
+    @PostMapping("save")
+    public void ínserLoailithuyet(@RequestBody Loailithuyet x) {
+        loailithuyetService.save(x);
+    }
+
+    @DeleteMapping("delete")
+    public void removeLoailithuyet(@RequestBody Loailithuyet x) {
+        loailithuyetService.delete(x);
     }
 }
